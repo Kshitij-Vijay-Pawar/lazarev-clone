@@ -1,98 +1,106 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import Image from "next/image";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-export default function ParallaxSection() {
-  const sectionRef = useRef(null);
+gsap.registerPlugin(ScrollTrigger);
 
-  // Track scroll progress for this section
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
+export default function AICtaSection() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const img1Ref = useRef<HTMLDivElement>(null);
+  const img2Ref = useRef<HTMLDivElement>(null);
 
-  // Map progress to different movement speeds
-  const ySlow = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const yMedium = useTransform(scrollYProgress, [0, 1], [0, -200]);
-  const yFast = useTransform(scrollYProgress, [0, 1], [0, -400]);
-  const yReverse = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    gsap.to(img1Ref.current, {
+      yPercent: 80,
+      ease: "none",
+      scrollTrigger: { trigger: section, scrub: true },
+    });
+
+    gsap.to(img2Ref.current, {
+      yPercent: -10,
+      scale: 1.05,
+      ease: "none",
+      scrollTrigger: { trigger: section, scrub: true },
+    });
+  }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="relative h-[80vh] bg-bg flex items-center justify-center overflow-hidden"
+      className="relative w-full h-[80vh] flex items-center justify-center overflow-hidden bg-gradient-to-b from-[#04010E] via-[#10093B] to-[#1E1462]"
     >
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-bg via-card/20 to-bg" />
-      
-      <div className="relative w-full max-w-6xl h-[600px] flex items-center justify-center">
-        {/* Central content */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center z-20"
-        >
-          <h2 className="text-5xl md:text-6xl font-bold text-text mb-6">
-            Innovation in Motion
-          </h2>
-          <p className="text-xl text-text/70 max-w-2xl mx-auto mb-8">
-            Experience the power of cutting-edge design and seamless user experiences
-          </p>
-          <button className="bg-primary text-bg px-8 py-4 rounded-full font-semibold hover:bg-primary/90 transition-all duration-300 transform hover:scale-105">
-            Explore Our Process
-          </button>
-        </motion.div>
-
-        {/* Floating elements with parallax */}
-        <motion.div
-          style={{ y: ySlow }}
-          className="absolute top-10 left-10 w-20 h-20 bg-primary/20 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-primary/30"
-        >
-          <div className="w-8 h-8 bg-primary rounded-lg" />
-        </motion.div>
-
-        <motion.div
-          style={{ y: yMedium }}
-          className="absolute top-32 right-20 w-16 h-16 bg-secondary/20 rounded-xl flex items-center justify-center backdrop-blur-sm border border-secondary/30"
-        >
-          <div className="w-6 h-6 bg-secondary rounded-lg" />
-        </motion.div>
-
-        <motion.div
-          style={{ y: yFast }}
-          className="absolute bottom-20 left-1/4 w-24 h-24 bg-card/40 rounded-3xl flex items-center justify-center backdrop-blur-sm border border-white/20"
-        >
-          <div className="w-10 h-10 bg-text/20 rounded-xl" />
-        </motion.div>
-
-        <motion.div
-          style={{ y: yReverse }}
-          className="absolute top-1/2 right-10 w-12 h-12 bg-primary/30 rounded-lg flex items-center justify-center backdrop-blur-sm border border-primary/40"
-        >
-          <div className="w-4 h-4 bg-primary rounded" />
-        </motion.div>
-
-        <motion.div
-          style={{ y: ySlow }}
-          className="absolute bottom-10 right-1/3 w-18 h-18 bg-secondary/25 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-secondary/35"
-        >
-          <div className="w-7 h-7 bg-secondary rounded-lg" />
-        </motion.div>
-
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="w-full h-full" style={{
-            backgroundImage: `
-              linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
-            `,
-            backgroundSize: '50px 50px'
-          }} />
+      {/* Floating glass shapes */}
+      <div
+        ref={img1Ref}
+        className="absolute top-[-10%] left-[-9%] w-[40%] h-auto opacity-40"
+      >
+        <div className="relative w-auto h-full aspect-[1/1]">
+          <Image
+            src="/img2.png" // ring
+            alt="3D Glass Shape 1"
+            fill
+            className="object-contain drop-shadow-2xl"
+            priority
+          />
         </div>
       </div>
+
+      <div
+        ref={img2Ref}
+        className="absolute bottom-[-70%] right-[-45%] h-[180vh] w-auto opacity-80 pointer-events-none"
+      >
+        <div className="relative w-auto h-full aspect-[1/1]">
+          <Image
+            src="/img1.png"
+            alt="3D Glass Shape 2"
+            fill
+            className="object-contain drop-shadow-2xl"
+            priority
+          />
+        </div>
+      </div>
+
+      {/* Hero content */}
+      <div className="relative z-10 text-center px-6 max-w-4xl">
+        <h2 className="text-6xl md:text-7xl font-extrabold text-white leading-tight tracking-tight">
+          Golden standard in{" "}
+          <span className="bg-gradient-to-r from-cyan-300 to-blue-400 bg-clip-text text-transparent">
+            UX + AI
+          </span>
+        </h2>
+
+        <p className="mt-6 text-gray-300 text-lg md:text-xl leading-relaxed">
+          Look, we’ve been designing AI experiences since 2017 — and we’re not
+          just dabbling in it; we’re dominating. We’ve tackled Adtech,
+          Salestech, Fintech, Legaltech, Media — you name it.
+        </p>
+
+        <p className="mt-8 text-gray-400">Want to see how we do it?</p>
+
+        {/* CTA Button */}
+        <a
+          href="/solutions/ai-ml"
+          className="mt-6 inline-flex items-center gap-2 bg-white text-black font-semibold px-8 py-4 rounded-full hover:bg-gray-200 transition-all duration-300"
+        >
+          CHECK OUR UX + AI INNOVATIONS HERE
+          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 15 15">
+            <path
+              fillRule="evenodd"
+              d="M10.125 3.153H1.961V1H13.8v11.839h-2.152V4.675L2.722 13.6 1.2 12.078l8.925-8.925Z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </a>
+      </div>
+
+      {/* Gradient overlay for depth */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
     </section>
   );
 }

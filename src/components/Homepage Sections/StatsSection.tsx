@@ -1,14 +1,19 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function StatsSection() {
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const statsRefs = useRef<HTMLDivElement[]>([]);
+
   const stats = [
     {
       id: "01",
       title: "$500M+",
       description: "in funding secured for our clients",
-      span: "col-span-2 row-span-1", 
+      span: "col-span-2 row-span-1",
       gradient: "from-primary/20 to-primary/5",
     },
     {
@@ -35,49 +40,91 @@ export default function StatsSection() {
     {
       id: "05",
       title: "All-in-One Solution",
-      description: "From user-research to scalable design systems we've got you covered",
+      description:
+        "From user-research to scalable design systems we've got you covered",
       span: "col-span-2 row-span-1",
       gradient: "from-primary/20 to-primary/5",
     },
   ];
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      gsap.registerPlugin(ScrollTrigger);
+
+      const ctx = gsap.context(() => {
+        // Animate heading and description
+        gsap.from(sectionRef.current!.querySelectorAll("h2, p"), {
+          opacity: 0,
+          y: 50,
+          duration: 1,
+          ease: "power3.out",
+          stagger: 0.2,
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 85%",
+          },
+        });
+
+
+        // Animate stat cards
+        gsap.fromTo(
+          statsRefs.current,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            stagger: 0.15,
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 80%",
+            },
+          }
+        );
+      }, sectionRef);
+
+      return () => ctx.revert();
+    }
+  }, []);
+
   return (
-    <section className="w-full py-20 px-6 md:px-12 bg-bg">
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold text-text mb-4">
+    <section
+      ref={sectionRef}
+      className="w-full py-20 px-6 md:px-12 bg-bg flex flex-col items-center h-screen justify-center"
+    >
+      <div className="max-w-7xl w-full flex flex-col items-center text-center gap-6">
+        {/* Section Heading */}
+        <div className="flex flex-col items-center text-center gap-4 mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-text">
             Our Impact
           </h2>
-          <p className="text-lg text-text/70 max-w-2xl mx-auto">
+          <p className="text-lg text-text/70 max-w-2xl">
             Numbers that speak to our commitment to excellence and innovation
           </p>
-        </motion.div>
+        </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[200px] gap-6 max-w-7xl mx-auto">
+        {/* Stats Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[200px] gap-6 w-full max-w-7xl mx-auto">
           {stats.map((stat, index) => (
-            <motion.div
+            <div
               key={stat.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className={`relative rounded-2xl bg-card p-6 flex flex-col justify-end border border-white/10 hover:border-primary/30 transition-all duration-300 group ${stat.span}`}
+              ref={(el) => {
+                if (el) statsRefs.current[index] = el;
+              }}
+              className={`relative rounded-2xl bg-card p-6 flex flex-col justify-center border border-white/10 hover:border-primary/30 transition-all duration-300 group ${stat.span}`}
             >
-              {/* Background gradient */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-              
-              {/* Top left index */}
+              {/* Gradient background */}
+              <div
+                className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+              />
+
+              {/* Top-left index */}
               <span className="absolute top-4 left-4 text-sm text-text/50 font-mono">
                 / {stat.id}
               </span>
 
-              {/* Text Content */}
+              {/* Text content */}
               <div className="relative z-10">
                 <h3 className="text-3xl md:text-4xl font-bold text-text group-hover:text-primary transition-colors duration-300">
                   {stat.title}
@@ -87,9 +134,9 @@ export default function StatsSection() {
                 </p>
               </div>
 
-              {/* Hover effect */}
+              {/* Hover overlay */}
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

@@ -70,7 +70,7 @@ export default function VideoSection() {
         {/* Video Container */}
         <div
           ref={videoRef}
-          className="relative w-full max-w-5xl aspect-video overflow-hidden rounded-3xl bg-card/20 backdrop-blur-sm border border-white/10 shadow-2xl flex justify-center items-center"
+          className="relative w-full max-w-7xl aspect-video overflow-hidden rounded-3xl bg-card/20 backdrop-blur-sm border border-white/10 shadow-2xl flex justify-center items-center"
         >
           <video
             className="w-full h-full object-cover"

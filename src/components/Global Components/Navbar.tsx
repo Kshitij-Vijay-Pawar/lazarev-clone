@@ -1,41 +1,101 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { gsap } from "gsap";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navRef = useRef(null);
+  const logoRef = useRef(null);
+  const linksRef = useRef([]);
+  linksRef.current = [];
+
+  // register links
+  const addToRefs = (el) => {
+    if (el && !linksRef.current.includes(el)) linksRef.current.push(el);
+  };
+
+  // Animate on mount
+  useEffect(() => {
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    tl.from(navRef.current, {
+      y: -40,
+      opacity: 0,
+      duration: 0.6,
+    })
+      .from(logoRef.current, { opacity: 0, y: 20, duration: 0.6 }, "-=0.3")
+      .from(linksRef.current, {
+        opacity: 0,
+        y: 20,
+        stagger: 0.1,
+        duration: 0.4,
+      }, "-=0.4");
+  }, []);
+
+  // Shrink navbar on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        // After first scroll
+        gsap.to(navRef.current, {
+          height: "4rem", // ~h-16
+          duration: 0.3,
+          ease: "power2.out",
+          backgroundColor: "rgba(0,0,0,0.6)", // optional for visual effect
+          backdropFilter: "blur(10px)",
+        });
+      } else {
+        // Before scroll
+        gsap.to(navRef.current, {
+          height: "6rem", // taller before scroll (~h-24)
+          duration: 0.3,
+          ease: "power2.out",
+          backgroundColor: "rgba(0,0,0,0.4)",
+          backdropFilter: "blur(12px)",
+        });
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Animate mobile menu open/close
+  useEffect(() => {
+    if (isMenuOpen) {
+      gsap.fromTo(
+        ".mobile-menu",
+        { y: -10, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }
+      );
+    }
+  }, [isMenuOpen]);
 
   return (
-    <nav className="sticky top-0 w-full z-50 bg-bg/80 backdrop-blur-lg border-b border-white/10 shadow-sm flex justify-center">
+    <nav
+      ref={navRef}
+      className="sticky top-0 w-full z-50 bg-bg/80 backdrop-blur-lg border-b border-white/10 shadow-sm flex justify-center h-24 transition-all duration-300"
+    >
       {/* Centered container */}
-      <div className="w-full md:w-[75%] px-6 h-16 flex items-center justify-between">
+      <div className="w-full md:w-[75%] px-6 flex items-center justify-between">
         {/* Logo */}
-        <h1 className="text-2xl font-bold text-primary tracking-wide">
+        <h1 ref={logoRef} className="text-2xl font-bold text-primary tracking-wide">
           Lazarev Clone
         </h1>
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex items-center gap-8 text-text font-medium">
-          <li>
-            <a href="/" className="hover:text-primary transition-all duration-200">
-              Home
-            </a>
-          </li>
-          <li>
-            <a href="/about" className="hover:text-primary transition-all duration-200">
-              About
-            </a>
-          </li>
-          <li>
-            <a href="/services" className="hover:text-primary transition-all duration-200">
-              Services
-            </a>
-          </li>
-          <li>
-            <a href="/contact" className="hover:text-primary transition-all duration-200">
-              Contact
-            </a>
-          </li>
+          {["Home", "About", "Services", "Contact"].map((item) => (
+            <li key={item} ref={addToRefs}>
+              <a
+                href={`/${item.toLowerCase()}`}
+                className="hover:text-primary transition-all duration-200"
+              >
+                {item}
+              </a>
+            </li>
+          ))}
         </ul>
 
         {/* Mobile Menu Button */}
@@ -44,12 +104,10 @@ export default function Navbar() {
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? (
-            // Close Icon
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           ) : (
-            // Menu Icon
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
@@ -59,7 +117,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden overflow-hidden transition-all duration-300 ${
+        className={`mobile-menu md:hidden overflow-hidden transition-all duration-300 ${
           isMenuOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
         }`}
       >

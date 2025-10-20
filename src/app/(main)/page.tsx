@@ -2,6 +2,7 @@ import Hero from "@/components/Homepage Sections/Hero";
 import ParallaxSection from "@/components/Homepage Sections/ParallaxSection";
 import StatsSection from "@/components/Homepage Sections/StatsSection";
 import VideoSection from "@/components/Homepage Sections/VideoSection";
+import Ourclients from "@/components/Homepage Sections/Ourclients"
 
 export default function HomePage() {
   return (
@@ -18,6 +19,7 @@ export default function HomePage() {
       {/* Parallax Section */}
       <ParallaxSection />
       
+      <Ourclients />
       {/* Additional spacing for better visual flow */}
       <div className="h-20" />
     </main>
