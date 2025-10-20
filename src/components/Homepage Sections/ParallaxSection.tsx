@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -38,7 +39,7 @@ export default function AICtaSection() {
       {/* Floating glass shapes */}
       <div
         ref={img1Ref}
-        className="absolute top-[-10%] left-[-9%] w-[40%] h-auto opacity-40"
+        className="absolute top-[-10%] left-[-9%] w-[40%] h-auto opacity-50"
       >
         <div className="relative w-auto h-full aspect-[1/1]">
           <Image
@@ -53,7 +54,7 @@ export default function AICtaSection() {
 
       <div
         ref={img2Ref}
-        className="absolute bottom-[-70%] right-[-45%] h-[180vh] w-auto opacity-80 pointer-events-none"
+        className="absolute bottom-[-70%] right-[-40%] h-[180vh] w-auto opacity-80 pointer-events-none"
       >
         <div className="relative w-auto h-full aspect-[1/1]">
           <Image
@@ -67,36 +68,43 @@ export default function AICtaSection() {
       </div>
 
       {/* Hero content */}
-      <div className="relative z-10 text-center px-6 max-w-4xl">
-        <h2 className="text-6xl md:text-7xl font-extrabold text-white leading-tight tracking-tight">
+      <div className="relative z-10 text-center px-6 w-full flex flex-col items-center gap-8">
+        <h2 className="text-6xl md:text-9xl font-extrabold text-white leading-tight tracking-tight">
           Golden standard in{" "}
           <span className="bg-gradient-to-r from-cyan-300 to-blue-400 bg-clip-text text-transparent">
             UX + AI
           </span>
         </h2>
 
-        <p className="mt-6 text-gray-300 text-lg md:text-xl leading-relaxed">
-          Look, we’ve been designing AI experiences since 2017 — and we’re not
-          just dabbling in it; we’re dominating. We’ve tackled Adtech,
-          Salestech, Fintech, Legaltech, Media — you name it.
-        </p>
+        <div className="w-full flex justify-center mt-4">
+          <p className="mt-6 text-gray-300 text-xl md:text-3xl leading-relaxed max-w-7xl text-center">
+            Look, we’ve been designing AI experiences since 2017 — and we’re not
+            just dabbling in it; we’re dominating. We’ve tackled Adtech,
+            Salestech, Fintech, Legaltech, Media — you name it.
+          </p>
+        </div>
 
-        <p className="mt-8 text-gray-400">Want to see how we do it?</p>
+        <p className=" mt-6 text-gray-300 text-xl md:text-3xl leading-relaxed max-w-7xl text-center">
+          Want to see how we do it?
+        </p>
+        <div className="h-14">
+
+        </div>
 
         {/* CTA Button */}
-        <a
-          href="/solutions/ai-ml"
-          className="mt-6 inline-flex items-center gap-2 bg-white text-black font-semibold px-8 py-4 rounded-full hover:bg-gray-200 transition-all duration-300"
-        >
-          CHECK OUR UX + AI INNOVATIONS HERE
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 15 15">
-            <path
-              fillRule="evenodd"
-              d="M10.125 3.153H1.961V1H13.8v11.839h-2.152V4.675L2.722 13.6 1.2 12.078l8.925-8.925Z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </a>
+          <Link
+            href="/solutions/ai-ml"
+            className="flex items-center justify-center gap-2 bg-white text-black font-semibold p-20 rounded-full hover:bg-gray-200 transition-all duration-300 h-14 w-lg"
+          >
+            CHECK OUR UX + AI INNOVATIONS HERE
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 15 15">
+              <path
+                fillRule="evenodd"
+                d="M10.125 3.153H1.961V1H13.8v11.839h-2.152V4.675L2.722 13.6 1.2 12.078l8.925-8.925Z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </Link>
       </div>
 
       {/* Gradient overlay for depth */}

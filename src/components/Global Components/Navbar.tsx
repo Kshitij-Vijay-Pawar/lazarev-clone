@@ -5,14 +5,16 @@ import { gsap } from "gsap";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const navRef = useRef(null);
-  const logoRef = useRef(null);
-  const linksRef = useRef([]);
+  const navRef = useRef<HTMLDivElement>(null);
+  const logoRef = useRef<HTMLHeadingElement>(null);
+  const linksRef = useRef<HTMLLIElement[]>([]);
   linksRef.current = [];
 
-  // register links
-  const addToRefs = (el) => {
-    if (el && !linksRef.current.includes(el)) linksRef.current.push(el);
+  // ✅ Properly typed function
+  const addToRefs = (el: HTMLLIElement | null) => {
+    if (el && !linksRef.current.includes(el)) {
+      linksRef.current.push(el);
+    }
   };
 
   // Animate on mount
@@ -25,30 +27,32 @@ export default function Navbar() {
       duration: 0.6,
     })
       .from(logoRef.current, { opacity: 0, y: 20, duration: 0.6 }, "-=0.3")
-      .from(linksRef.current, {
-        opacity: 0,
-        y: 20,
-        stagger: 0.1,
-        duration: 0.4,
-      }, "-=0.4");
+      .from(
+        linksRef.current,
+        {
+          opacity: 0,
+          y: 20,
+          stagger: 0.1,
+          duration: 0.4,
+        },
+        "-=0.4"
+      );
   }, []);
 
   // Shrink navbar on scroll
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 20) {
-        // After first scroll
         gsap.to(navRef.current, {
-          height: "4rem", // ~h-16
+          height: "4rem", // h-16
           duration: 0.3,
           ease: "power2.out",
-          backgroundColor: "rgba(0,0,0,0.6)", // optional for visual effect
+          backgroundColor: "rgba(0,0,0,0.6)",
           backdropFilter: "blur(10px)",
         });
       } else {
-        // Before scroll
         gsap.to(navRef.current, {
-          height: "6rem", // taller before scroll (~h-24)
+          height: "6rem", // h-24
           duration: 0.3,
           ease: "power2.out",
           backgroundColor: "rgba(0,0,0,0.4)",
@@ -80,7 +84,10 @@ export default function Navbar() {
       {/* Centered container */}
       <div className="w-full md:w-[75%] px-6 flex items-center justify-between">
         {/* Logo */}
-        <h1 ref={logoRef} className="text-2xl font-bold text-primary tracking-wide">
+        <h1
+          ref={logoRef}
+          className="text-2xl font-bold text-primary tracking-wide"
+        >
           Lazarev Clone
         </h1>
 
@@ -104,12 +111,32 @@ export default function Navbar() {
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? (
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           ) : (
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
             </svg>
           )}
         </button>
