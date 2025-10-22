@@ -68,7 +68,7 @@ export default function AICtaSection() {
       </div>
 
       {/* Hero content */}
-      <div className="relative z-10 text-center px-6 w-full flex flex-col items-center gap-8">
+      <div className="relative z-10 text-center px-2 py-12 w-full flex flex-col items-center">
         <h2 className="text-6xl md:text-9xl font-extrabold text-white leading-tight tracking-tight">
           Golden standard in{" "}
           <span className="bg-gradient-to-r from-cyan-300 to-blue-400 bg-clip-text text-transparent">
@@ -76,7 +76,7 @@ export default function AICtaSection() {
           </span>
         </h2>
 
-        <div className="w-full flex justify-center mt-4">
+        <div className="w-full flex justify-center mt-1">
           <p className="mt-6 text-gray-300 text-xl md:text-3xl leading-relaxed max-w-7xl text-center">
             Look, we’ve been designing AI experiences since 2017 — and we’re not
             just dabbling in it; we’re dominating. We’ve tackled Adtech,
@@ -84,17 +84,14 @@ export default function AICtaSection() {
           </p>
         </div>
 
-        <p className=" mt-6 text-gray-300 text-xl md:text-3xl leading-relaxed max-w-7xl text-center">
+        <p className=" mt-16 text-gray-300 text-xl md:text-3xl leading-relaxed max-w-7xl text-center">
           Want to see how we do it?
         </p>
-        <div className="h-14">
-
-        </div>
 
         {/* CTA Button */}
           <Link
             href="/solutions/ai-ml"
-            className="flex items-center justify-center gap-2 bg-white text-black font-semibold p-20 rounded-full hover:bg-gray-200 transition-all duration-300 h-14 w-lg"
+            className="flex items-center justify-center mt-20 gap-2 bg-white text-black font-semibold px-10 py-5 rounded-full hover:bg-gray-200 transition-all duration-300 w-lg"
           >
             CHECK OUR UX + AI INNOVATIONS HERE
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 15 15">

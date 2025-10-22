@@ -44,7 +44,7 @@ const Hero: React.FC = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-bg via-bg to-card/20 pointer-events-none" />
 
       <div ref={containerRef} className="relative z-10 flex flex-col items-center max-w-6xl opacity-0">
-        <p className="text-lg md:text-xl font-medium text-text/80 mb-8 tracking-wider">
+        <p className="text-lg md:text-xl font-medium text-text/80 mb-4 tracking-wider">
           AI + Product Design Agency /// San Francisco
         </p>
 
@@ -57,13 +57,10 @@ const Hero: React.FC = () => {
           </h1>
         </div>
 
-        <div className="h-4">
-
-        </div>
 
         <div
           ref={descRef}
-          className="text-lg md:text-xl font-light text-text/80 max-w-3xl mx-auto leading-relaxed mt-14"
+          className="text-lg md:text-xl font-light text-text/80 max-w-3xl mx-auto leading-relaxed"
         >
           We launch{" "}
           <span className="text-primary font-medium">MVPs</span>, redefine{" "}
@@ -71,20 +68,17 @@ const Hero: React.FC = () => {
           continuously dive into{" "}
           <span className="text-primary font-medium">customer development</span>
         </div>
-        <div className="h-9">
 
-        </div>
-
-        <div className="flex flex-col sm:flex-row sm:gap-6 gap-2 justify-center items-center mt-14">
+        <div className="flex flex-col sm:flex-row sm:gap-6 gap-2 justify-center items-center mt-16">
           <button
             ref={button1Ref}
-            className="bg-primary text-bg px-10 py-10 rounded-full font-semibold text-lg hover:bg-primary/90 hover:scale-105 shadow-lg hover:shadow-primary/30 min-w-[220px] h-12"
+            className="bg-primary text-bg px-10 py-5 rounded-full font-semibold text-lg hover:bg-primary/90 hover:scale-105 shadow-lg hover:shadow-primary/30 min-w-[220px]"
           >
             Start Your Project
           </button>
           <button
             ref={button2Ref}
-            className="border-2 border-text/30 text-text px-10 py-10 rounded-full font-semibold text-lg hover:border-primary hover:text-primary hover:bg-primary/5 min-w-[220px] h-12"
+            className="border-2 border-text/30 text-text px-10 py-5 rounded-full font-semibold text-lg hover:border-primary hover:text-primary hover:bg-primary/5 min-w-[220px]"
           >
             View Our Work
           </button>

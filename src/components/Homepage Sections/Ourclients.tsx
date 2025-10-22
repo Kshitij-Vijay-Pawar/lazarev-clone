@@ -139,7 +139,7 @@ const OurClients = () => {
             ref={descRef}
             className="text-lg lg:text-xl text-gray-300 max-w-4xl leading-relaxed"
           >
-            Whether you're an AI startup aiming for Series D or an established
+            Whether you&apos;re an AI startup aiming for Series D or an established
             brand seeking a digital transformation, our award-winning team will
             take your user-experience to the next level.
           </p>

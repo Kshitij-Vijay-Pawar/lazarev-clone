@@ -49,6 +49,7 @@ export default function Navbar() {
           ease: "power2.out",
           backgroundColor: "rgba(0,0,0,0.6)",
           backdropFilter: "blur(10px)",
+          borderBottom: "2px solid rgba(255, 255, 255, 0.1)",
         });
       } else {
         gsap.to(navRef.current, {
@@ -57,6 +58,7 @@ export default function Navbar() {
           ease: "power2.out",
           backgroundColor: "rgba(0,0,0,0.4)",
           backdropFilter: "blur(12px)",
+          borderBottom: "0px solid rgba(255, 255, 255, 0.1)",
         });
       }
     };
@@ -79,7 +81,7 @@ export default function Navbar() {
   return (
     <nav
       ref={navRef}
-      className="sticky top-0 w-full z-50 bg-bg/80 backdrop-blur-lg border-b border-white/10 shadow-sm flex justify-center h-24 transition-all duration-300"
+      className="sticky top-0 w-full z-50 bg-bg/80 backdrop-blur-lg border-white/10 shadow-sm flex justify-center h-24 transition-all duration-300"
     >
       {/* Centered container */}
       <div className="w-full md:w-[75%] px-6 flex items-center justify-between">

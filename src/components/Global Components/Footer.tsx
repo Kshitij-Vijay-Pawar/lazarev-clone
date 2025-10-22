@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 const Footer = () => {
@@ -43,12 +44,12 @@ const Footer = () => {
             <h4 className="text-xl font-semibold text-text mb-6">Navigation</h4>
             <div className="grid grid-cols-2 gap-4">
               <ul className="space-y-3">
-                <li><a href="/" className="text-text/70 hover:text-primary transition-colors duration-200 text-lg">Home</a></li>
-                <li><a href="/about" className="text-text/70 hover:text-primary transition-colors duration-200 text-lg">About</a></li>
+                <li><Link href="/" className="text-text/70 hover:text-primary transition-colors duration-200 text-lg">Home</Link></li>
+                <li><Link href="/about" className="text-text/70 hover:text-primary transition-colors duration-200 text-lg">About</Link></li>
               </ul>
               <ul className="space-y-3">
-                <li><a href="/services" className="text-text/70 hover:text-primary transition-colors duration-200 text-lg">Services</a></li>
-                <li><a href="/contact" className="text-text/70 hover:text-primary transition-colors duration-200 text-lg">Contact</a></li>
+                <li><Link href="/services" className="text-text/70 hover:text-primary transition-colors duration-200 text-lg">Services</Link></li>
+                <li><Link href="/contact" className="text-text/70 hover:text-primary transition-colors duration-200 text-lg">Contact</Link></li>
               </ul>
             </div>
           </div>
@@ -77,7 +78,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <p className="text-text/80 text-lg">hello@lazarevclone.com</p>
-                  <p className="text-text/60">We'll respond within 24 hours</p>
+                  <p className="text-text/60">We&apos;ll respond within 24 hours</p>
                 </div>
               </div>
               

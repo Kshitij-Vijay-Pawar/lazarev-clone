@@ -29,7 +29,7 @@ export default function AboutPage() {
             About Our Agency
           </h1>
           <p className="text-xl text-text/70 max-w-3xl mx-auto">
-            We're a team of passionate designers and developers dedicated to
+            We&apos;re a team of passionate designers and developers dedicated to
             creating exceptional digital experiences for B2B and AI companies.
           </p>
         </div>
@@ -75,7 +75,7 @@ export default function AboutPage() {
             Ready to Work Together?
           </h2>
           <p className="text-lg text-text/70 mb-8 max-w-2xl mx-auto">
-            Let's discuss how we can help transform your product vision into
+            Let&apos;s discuss how we can help transform your product vision into
             reality.
           </p>
           <button className="bg-primary text-bg px-8 py-4 rounded-full font-semibold hover:bg-primary/90 transition-all duration-300 transform hover:scale-105">
